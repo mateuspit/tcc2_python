@@ -4,14 +4,13 @@ from rasterio.mask import mask
 from shapely.geometry import mapping
 import os
 
-def recortar_e_salvar_OLI(caminhos_imagens, caminho_shapefile, diretorio_destino_pai):
+def recortar_e_salvar_MODIS(caminhos_imagens, caminho_shapefile, diretorio_destino_pai):
     caminhos_destino = []  # Lista para armazenar os caminhos de destino
-
     # Abrir o shapefile com geopandas
     gdf = gpd.read_file(caminho_shapefile)
 
     # Reprojetar a geometria do shapefile para o CRS da imagem raster (EPSG:32624)
-    gdf = gdf.to_crs(epsg=32624)
+    #gdf = gdf.to_crs(epsg=32624)
 
     for caminho_imagem in caminhos_imagens:
         # Abrir a imagem TIFF com rasterio
@@ -34,7 +33,7 @@ def recortar_e_salvar_OLI(caminhos_imagens, caminho_shapefile, diretorio_destino
         nome_banda = os.path.basename(caminho_imagem).split('_')[-1][1]
 
         # Caminho para o diretório de destino específico para cada banda
-        diretorio_destino = os.path.join(diretorio_destino_pai, f'LL14CUTB{nome_banda}')
+        diretorio_destino = os.path.join(diretorio_destino_pai, f'ML14CUTB{nome_banda}')
 
         # Criar o diretório se não existir
         os.makedirs(diretorio_destino, exist_ok=True)
@@ -51,6 +50,6 @@ def recortar_e_salvar_OLI(caminhos_imagens, caminho_shapefile, diretorio_destino
         caminhos_destino.append(caminho_destino)
 
         # Exibir mensagem de sucesso
-        print(f'Imagem OLI recortada salva em: {caminho_destino}')
+        print(f'Imagem MODIS recortada salva em: {caminho_destino}')
 
     return caminhos_destino
