@@ -48,9 +48,16 @@ def calculate_ndci_OLI(caminho_b5, caminho_b4):
         ndci[mask_nonzero] = (b5[mask_nonzero] - b4[mask_nonzero]) / (b5[mask_nonzero] + b4[mask_nonzero])
 
         # Exibir o NDCI resultante
-        print(f'Max value in ndci: {np.max(ndci)}')
+        if np.max(ndci) == 0:
+            max_negative_ndci = np.max(ndci[ndci < 0]) 
+            print(f'Max value in ndci: {max_negative_ndci}')
+        else:
+            print(f'Max value in ndci: {np.max(ndci)}')
         # Encontrar o menor valor em ndci maior que zero
-        min_positive_ndci = np.min(ndci[(ndci > 0)])
+        if np.min(ndci)==0:
+            min_positive_ndci = np.min(ndci[(ndci > 0)])
+        else:
+            min_positive_ndci = np.min(ndci)
         # Exibir o menor valor presente em ndci maior que zero
         print(f'Min value in ndci: {min_positive_ndci}')
 
