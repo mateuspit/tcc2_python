@@ -12,7 +12,7 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Calcular e imprimir o maior e o menor valor em b4
         print(f'--------------- BEGIN NDWI MODIS CALCULATION')
         print(f'Max value in b4: {np.max(b4)}')
-        if np.min(b4)==0:
+        if np.min(b4) == 0:
             # Encontrar o menor valor em b4 maior que zero
             min_positive_b4 = np.min(b4[(b4 > 0)])
             # Exibir o menor valor presente em b4 maior que zero
@@ -20,7 +20,7 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         else:
             print(f'Min value in b4: {np.min(b4)}')
         print(f'Max value in b2: {np.max(b2)}')
-        if np.min(b2)==0:
+        if np.min(b2) == 0:
             # Encontrar o menor valor em b2 maior que zero
             min_positive_b2 = np.min(b2[(b2 > 0)])
             # Exibir o menor valor presente em b2 maior que zero
@@ -54,12 +54,22 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Exibir o menor valor presente em ndwi maior que zero
         print(f'Min value in ndwi: {min_positive_ndwi}')
 
+        # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
+        folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b4), os.pardir)))
+        
+        # Caminho para o diretório do arquivo de origem
+        output_directory = os.path.abspath(os.path.join(os.path.dirname(caminho_b4), os.pardir))
+        
+        # Caminho completo para o arquivo de saída do gráfico
+        output_graph_path = os.path.join(output_directory, f'ndwi_modis_graph_{folder_name}.png')
+
         # Exibir o NDWI
         plt.imshow(ndwi, cmap='RdYlBu', vmin=-1, vmax=1)
         plt.colorbar(label='NDWI')
         plt.title('Índice de Água Normalizado (NDWI)')
+        plt.savefig(output_graph_path)
         plt.show()
-
+        print(f"Gŕafico NDWI salvo em {output_graph_path}")
         print(f'--------------- END NDWI MODIS CALCULATION')
 
         return ndwi

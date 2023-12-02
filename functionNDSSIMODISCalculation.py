@@ -54,12 +54,22 @@ def calculate_ndssi_MODIS(caminho_b3, caminho_b2):
         # Exibir o menor valor presente em ndssi maior que zero
         print(f'Min value in ndssi: {min_positive_ndssi}')
 
+        # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
+        folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir)))
+        
+        # Caminho para o diretório do arquivo de origem
+        output_directory = os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir))
+        
+        # Caminho completo para o arquivo de saída do gráfico
+        output_graph_path = os.path.join(output_directory, f'ndssi_modis_graph_{folder_name}.png')
+
         # Exibir o NDSSI
         plt.imshow(ndssi, cmap='coolwarm', vmin=-1, vmax=1)
         plt.colorbar(label='NDSSI')
-        plt.title('Índice de Concentração de Deoxirribonucleico (NDSSI)')
+        plt.title('Índice de Concentração de Sedimentos Suspensos (NDSSI)')
+        plt.savefig(output_graph_path)
         plt.show()
-
+        print(f"Gŕafico NDSSI salvo em {output_graph_path}")
         print(f'--------------- END NDSSI MODIS CALCULATION')
 
         return ndssi

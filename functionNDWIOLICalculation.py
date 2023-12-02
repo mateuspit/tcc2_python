@@ -54,11 +54,22 @@ def calculate_ndwi_OLI(caminho_b3, caminho_b5):
         # Exibir o menor valor presente em ndwi maior que zero
         print(f'Min value in ndwi: {min_positive_ndwi}')
 
+        # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
+        folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir)))
+        
+        # Caminho para o diretório do arquivo de origem
+        output_directory = os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir))
+        
+        # Caminho completo para o arquivo de saída do gráfico
+        output_graph_path = os.path.join(output_directory, f'ndwi_oli_graph_{folder_name}.png')
+
         # Exibir o NDWI
         plt.imshow(ndwi, cmap='RdYlBu', vmin=-1, vmax=1)
         plt.colorbar(label='NDWI')
         plt.title('Índice de Água Normalizado (NDWI)')
+        plt.savefig(output_graph_path)
         plt.show()
+        print(f"Gŕafico NDWI salvo em {output_graph_path}")
         print(f'--------------- END NDWI OLI CALCULATION')
 
         return ndwi

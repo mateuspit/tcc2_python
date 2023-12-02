@@ -54,12 +54,22 @@ def calculate_ndci_MODIS(caminho_b1, caminho_b2):
         # Exibir o menor valor presente em ndci maior que zero
         print(f'Min value in ndci: {min_positive_ndci}')
 
+        # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
+        folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b1), os.pardir)))
+        
+        # Caminho para o diretório do arquivo de origem
+        output_directory = os.path.abspath(os.path.join(os.path.dirname(caminho_b1), os.pardir))
+        
+        # Caminho completo para o arquivo de saída do gráfico
+        output_graph_path = os.path.join(output_directory, f'ndci_modis_graph_{folder_name}.png')
+
         # Exibir o NDCI
         plt.imshow(ndci, cmap='RdYlGn', vmin=-1, vmax=1)
         plt.colorbar(label='NDCI')
         plt.title('Índice de Concentração de Deoxirribonucleico (NDCI)')
+        plt.savefig(output_graph_path)
         plt.show()
-
+        print(f"Gŕafico NDCI salvo em {output_graph_path}")
         print(f'--------------- END NDCI MODIS CALCULATION')
 
         return ndci
