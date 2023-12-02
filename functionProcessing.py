@@ -6,7 +6,6 @@ from functionOLICutWithShapefile import recortar_e_salvar_OLI
 from functionNDWIOLICalculation import calculate_ndwi_OLI
 from functionNDCIOLICalculation import calculate_ndci_OLI
 from functionNDSSIOLICalculation import calculate_ndssi_OLI
-import os
 
 def processar_imagens(caminhos_imagens_OLI, caminhos_imagens_MODIS, caminho_shapefile,
                       diretorio_destino_pai_OLI, diretorio_destino_pai_MODIS):
