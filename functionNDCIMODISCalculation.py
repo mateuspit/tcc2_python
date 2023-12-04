@@ -50,7 +50,15 @@ def calculate_ndci_MODIS(caminho_b1, caminho_b2):
         # Exibir o NDCI resultante
         print(f'Max value in ndci: {np.max(ndci)}')
         # Encontrar o menor valor em ndci maior que zero
-        min_positive_ndci = np.min(ndci[(ndci > 0)])
+        #min_positive_ndci = np.min(ndci[(ndci > 0)])
+        ###
+        ###
+        if np.min(ndci)==0:
+            min_positive_ndci = np.min(ndci[(ndci > 0)])
+        else:
+            min_positive_ndci = np.min(ndci)
+        ###
+        ###
         # Exibir o menor valor presente em ndci maior que zero
         print(f'Min value in ndci: {min_positive_ndci}')
 
