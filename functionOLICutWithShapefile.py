@@ -17,13 +17,6 @@ def recortar_e_salvar_OLI(caminhos_imagens, caminho_shapefile, diretorio_destino
         # Abrir a imagem TIFF com rasterio
         with rasterio.open(caminho_imagem) as src:
             # Recuperar a geometria da máscara do shapefile
-            ##################
-            ##################
-            ##################
-            #print(gdf)
-            ##################
-            ##################
-            ##################
             geometria_mascara = gdf.geometry.values[0]
             # Converta a geometria para um formato que o rasterio entenda
             geometria_mascara = [mapping(geometria_mascara)]

@@ -11,22 +11,19 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
 
         # Calcular e imprimir o maior e o menor valor em b4
         print(f'--------------- BEGIN NDWI MODIS CALCULATION')
+
+        # Encontrar o maior valor em b4
         print(f'Max value in b4: {np.max(b4)}')
-        if np.min(b4) == 0:
-            # Encontrar o menor valor em b4 maior que zero
-            min_positive_b4 = np.min(b4[(b4 > 0)])
-            # Exibir o menor valor presente em b4 maior que zero
-            print(f'Min value in b4: {min_positive_b4}')
-        else:
-            print(f'Min value in b4: {np.min(b4)}')
+        # Encontrar o menor valor em b4, valores com 0 não contam
+        min_b4 = np.min(b4[(b4 > 0)])
+        print(f'Min value in b4: {min_b4}')
+
+
+        # Encontrar o maior valor em b2
         print(f'Max value in b2: {np.max(b2)}')
-        if np.min(b2) == 0:
-            # Encontrar o menor valor em b2 maior que zero
-            min_positive_b2 = np.min(b2[(b2 > 0)])
-            # Exibir o menor valor presente em b2 maior que zero
-            print(f'Min value in b2: {min_positive_b2}')
-        else:
-            print(f'Min value in b2: {np.min(b2)}')
+        # Encontrar o menor valor em b2, valores com 0 não contam
+        min_b2 = np.min(b2[(b2 > 0)])
+        print(f'Min value in b2: {min_b2}')
 
         # Mostrar o número de elementos em b4
         print(f'Number of elements in b4: {np.size(b4)}')
@@ -48,19 +45,21 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         ndwi[mask_nonzero] = (b4[mask_nonzero] - b2[mask_nonzero]) / (b4[mask_nonzero] + b2[mask_nonzero])
 
         # Exibir o NDWI resultante
-        print(f'Max value in ndwi: {np.max(ndwi)}')
-        # Encontrar o menor valor em ndwi maior que zero
-        #min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
-        ###
-        ###
-        if np.min(ndwi)==0:
-            min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
+        # Encontrar o maior valor em ndwi maior que zero
+        if np.max(ndwi)==0:
+            max_ndci = np.min(ndwi[(ndwi > 0)])
         else:
-            min_positive_ndwi = np.min(ndwi)
-        ###
-        ###
+            max_ndci = np.max(ndwi)
+        # Exibir o maior valor presente em ndwi maior que zero
+        print(f'Max value in ndwi: {max_ndci}')
+
+        # Encontrar o menor valor em ndwi maior que zero
+        if np.min(ndwi)==0:
+            min_ndwi = np.min(ndwi[(ndwi > 0)])
+        else:
+            min_ndwi = np.min(ndwi)
         # Exibir o menor valor presente em ndwi maior que zero
-        print(f'Min value in ndwi: {min_positive_ndwi}')
+        print(f'Min value in ndwi: {min_ndwi}')
 
         # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
         folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b4), os.pardir)))
@@ -74,10 +73,10 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Exibir o NDWI
         plt.imshow(ndwi, cmap='RdYlBu', vmin=-1, vmax=1)
         plt.colorbar(label='NDWI')
-        plt.title('Índice de Água Normalizado (NDWI)')
+        plt.title('Índice de água normalizado (NDWI)')
         plt.savefig(output_graph_path)
         plt.show()
-        print(f"Gŕafico NDWI salvo em {output_graph_path}")
+        print(f"Gŕafico NDWI MODIS salvo em {output_graph_path}")
         print(f'--------------- END NDWI MODIS CALCULATION')
 
         return ndwi

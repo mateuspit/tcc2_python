@@ -4,6 +4,14 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def calculate_ndci_MODIS(caminho_b1, caminho_b2):
+    ###
+    ###
+    ###
+    #print(caminho_b1)
+    #print(caminho_b2)
+    ###
+    ###
+    ###
     with rasterio.open(caminho_b1) as src_b1, rasterio.open(caminho_b2) as src_b2:
         # Ler os dados das bandas como matrizes numpy
         b1 = src_b1.read(1).astype(float)
@@ -44,6 +52,12 @@ def calculate_ndci_MODIS(caminho_b1, caminho_b2):
         mask_nonzero = (b1 != 0) & (b2 != 0)
 
         # Calcular NDCI apenas para os valores não nulos em b1 e b2
+        #print("begin b1")
+        #print(b1)
+        #print("end b1")
+        #print("begin b2")
+        #print(b2)
+        #print("end b2")
         ndci = np.zeros_like(b1, dtype=float)
         ndci[mask_nonzero] = (b1[mask_nonzero] - b2[mask_nonzero]) / (b1[mask_nonzero] + b2[mask_nonzero])
 
@@ -53,6 +67,8 @@ def calculate_ndci_MODIS(caminho_b1, caminho_b2):
         #min_positive_ndci = np.min(ndci[(ndci > 0)])
         ###
         ###
+        #print(f"-----------------------{np.min(ndci)}")
+        #print(ndci)
         if np.min(ndci)==0:
             min_positive_ndci = np.min(ndci[(ndci > 0)])
         else:

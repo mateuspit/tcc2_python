@@ -6,6 +6,7 @@ import os
 
 def recortar_e_salvar_MODIS(caminhos_imagens, caminho_shapefile, diretorio_destino_pai):
     caminhos_destino = []  # Lista para armazenar os caminhos de destino
+    
     # Abrir o shapefile com geopandas
     gdf = gpd.read_file(caminho_shapefile)
 

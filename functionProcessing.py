@@ -25,6 +25,20 @@ def processar_imagens(caminhos_imagens_OLI, caminhos_imagens_MODIS, caminho_shap
     # Processamento para imagens MODIS
     imagens_cortadas_MODIS = recortar_e_salvar_MODIS(caminhos_imagens_MODIS, caminho_shapefile, diretorio_destino_pai_MODIS)
 
+    ####
+    ###
+    ##
+    #
+    #print(f"{imagens_cortadas_MODIS}")
+    ##caminho_b2_MODIS = next(caminho for caminho in imagens_cortadas_MODIS if "B2" in caminho)
+    #print("loucura")
+    #print(next(caminho for caminho in imagens_cortadas_MODIS if "B2" in caminho))
+    #print("loucura")
+    #
+    ##
+    ###
+    ####
+
     caminho_b1_MODIS = next(caminho for caminho in imagens_cortadas_MODIS if "B1" in caminho)
     caminho_b2_MODIS = next(caminho for caminho in imagens_cortadas_MODIS if "B2" in caminho)
     caminho_b3_MODIS = next(caminho for caminho in imagens_cortadas_MODIS if "B3" in caminho)
@@ -32,6 +46,14 @@ def processar_imagens(caminhos_imagens_OLI, caminhos_imagens_MODIS, caminho_shap
 
     # Calcular índices para imagens MODIS
     ndwi_MODIS = calculate_ndwi_MODIS(caminho_b4_MODIS, caminho_b2_MODIS)
+    ####
+    ###
+    #
+    #print(f"aaa {caminho_b1_MODIS}")
+    #print(f"aaa {caminho_b2_MODIS}")
+    #
+    ###
+    ####
     ndci_MODIS = calculate_ndci_MODIS(caminho_b1_MODIS, caminho_b2_MODIS)
     ndssi_MODIS = calculate_ndssi_MODIS(caminho_b3_MODIS, caminho_b2_MODIS)
 
