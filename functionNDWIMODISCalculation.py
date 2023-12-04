@@ -50,7 +50,15 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Exibir o NDWI resultante
         print(f'Max value in ndwi: {np.max(ndwi)}')
         # Encontrar o menor valor em ndwi maior que zero
-        min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
+        #min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
+        ###
+        ###
+        if np.min(ndwi)==0:
+            min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
+        else:
+            min_positive_ndwi = np.min(ndwi)
+        ###
+        ###
         # Exibir o menor valor presente em ndwi maior que zero
         print(f'Min value in ndwi: {min_positive_ndwi}')
 
