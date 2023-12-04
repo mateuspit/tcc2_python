@@ -50,7 +50,15 @@ def calculate_ndssi_MODIS(caminho_b3, caminho_b2):
         # Exibir o NDSSI resultante
         print(f'Max value in ndssi: {np.max(ndssi)}')
         # Encontrar o menor valor em ndssi maior que zero
-        min_positive_ndssi = np.min(ndssi[(ndssi > 0)])
+        #min_positive_ndssi = np.min(ndssi[(ndssi > 0)])
+        ###
+        ###
+        if np.min(ndssi)==0:
+            min_positive_ndssi = np.min(ndssi[(ndssi > 0)])
+        else:
+            min_positive_ndssi = np.min(ndssi)
+        ###
+        ###
         # Exibir o menor valor presente em ndssi maior que zero
         print(f'Min value in ndssi: {min_positive_ndssi}')
 
