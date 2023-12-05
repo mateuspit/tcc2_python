@@ -11,22 +11,19 @@ def calculate_ndssi_MODIS(caminho_b3, caminho_b2):
 
         # Calcular e imprimir o maior e o menor valor após a normalização
         print(f'--------------- BEGIN NDSSI MODIS CALCULATION')
+
+        # Encontrar o maior valor em b3
         print(f'Max value in b3: {np.max(b3)}')
-        if np.min(b3)==0:
-            # Encontrar o menor valor em b3 maior que zero
-            min_positive_b3 = np.min(b3[(b3 > 0)])
-            # Exibir o menor valor presente em b3 maior que zero
-            print(f'Min value in b3: {min_positive_b3}')
-        else:
-            print(f'Min value in b3: {np.min(b3)}')
+        # Encontrar o menor valor em b3, valores com 0 não contam
+        min_b3 = np.min(b3[(b3 > 0)])
+        print(f'Min value in b3: {min_b3}')
+
+
+        # Encontrar o maior valor em b2
         print(f'Max value in b2: {np.max(b2)}')
-        if np.min(b2)==0:
-            # Encontrar o menor valor em b2 maior que zero
-            min_positive_b2 = np.min(b2[(b2 > 0)])
-            # Exibir o menor valor presente em b2 maior que zero
-            print(f'Min value in b2: {min_positive_b2}')
-        else:
-            print(f'Min value in b2: {np.min(b2)}')
+        # Encontrar o menor valor em b2, valores com 0 não contam
+        min_b2 = np.min(b2[(b2 > 0)])
+        print(f'Min value in b2: {min_b2}')
 
         # Mostrar o número de elementos em b2
         print(f'Number of elements in b2: {np.size(b2)}')
@@ -48,19 +45,21 @@ def calculate_ndssi_MODIS(caminho_b3, caminho_b2):
         ndssi[mask_nonzero] = (b3[mask_nonzero] - b2[mask_nonzero]) / (b3[mask_nonzero] + b2[mask_nonzero])
 
         # Exibir o NDSSI resultante
-        print(f'Max value in ndssi: {np.max(ndssi)}')
-        # Encontrar o menor valor em ndssi maior que zero
-        #min_positive_ndssi = np.min(ndssi[(ndssi > 0)])
-        ###
-        ###
-        if np.min(ndssi)==0:
-            min_positive_ndssi = np.min(ndssi[(ndssi > 0)])
+        # Encontrar o maior valor em ndssi maior que zero
+        if np.max(ndssi)==0:
+            max_ndci = np.max(ndssi[(ndssi < 0)])
         else:
-            min_positive_ndssi = np.min(ndssi)
-        ###
-        ###
+            max_ndci = np.max(ndssi)
+        # Exibir o maior valor presente em ndssi maior que zero
+        print(f'Max value in ndssi: {max_ndci}')
+
+        # Encontrar o menor valor em ndssi maior que zero
+        if np.min(ndssi)==0:
+            min_ndssi = np.min(ndssi[(ndssi > 0)])
+        else:
+            min_ndssi = np.min(ndssi)
         # Exibir o menor valor presente em ndssi maior que zero
-        print(f'Min value in ndssi: {min_positive_ndssi}')
+        print(f'Min value in ndssi: {min_ndssi}')
 
         # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
         folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir)))
@@ -74,7 +73,7 @@ def calculate_ndssi_MODIS(caminho_b3, caminho_b2):
         # Exibir o NDSSI
         plt.imshow(ndssi, cmap='coolwarm', vmin=-1, vmax=1)
         plt.colorbar(label='NDSSI')
-        plt.title('Índice de Concentração de Sedimentos Suspensos (NDSSI)')
+        plt.title('Índice de concentração de sedimentos suspensos (NDSSI)')
         plt.savefig(output_graph_path)
         plt.show()
         print(f"Gŕafico NDSSI salvo em {output_graph_path}")

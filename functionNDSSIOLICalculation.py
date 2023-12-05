@@ -11,22 +11,19 @@ def calculate_ndssi_OLI(caminho_b2, caminho_b5):
 
         # Calcular e imprimir o maior e o menor valor após a normalização
         print(f'--------------- BEGIN NDSSI OLI CALCULATION')
-        print(f'Max value in b2: {np.max(b2)}')
-        if np.min(b2)==0:
-            # Encontrar o menor valor em b2 maior que zero
-            min_positive_b2 = np.min(b2[(b2 > 0)])
-            # Exibir o menor valor presente em b2 maior que zero
-            print(f'Min value in b2: {min_positive_b2}')
-        else:
-            print(f'Min value in b2: {np.min(b2)}')
+
+        # Encontrar o maior valor em b5
         print(f'Max value in b5: {np.max(b5)}')
-        if np.min(b5)==0:
-            # Encontrar o menor valor em b5 maior que zero
-            min_positive_b5 = np.min(b5[(b5 > 0)])
-            # Exibir o menor valor presente em b5 maior que zero
-            print(f'Min value in b5: {min_positive_b5}')
-        else:
-            print(f'Min value in b5: {np.min(b5)}')
+        # Encontrar o menor valor em b5, valores com 0 não contam
+        min_b5 = np.min(b5[(b5 > 0)])
+        print(f'Min value in b5: {min_b5}')
+
+
+        # Encontrar o maior valor em b2
+        print(f'Max value in b2: {np.max(b2)}')
+        # Encontrar o menor valor em b2, valores com 0 não contam
+        min_b2 = np.min(b2[(b2 > 0)])
+        print(f'Min value in b2: {min_b2}')
 
         # Mostrar o número de elementos em b5
         print(f'Number of elements in b5: {np.size(b5)}')
