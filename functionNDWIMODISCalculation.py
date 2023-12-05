@@ -73,7 +73,7 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Exibir o NDWI
         plt.imshow(ndwi, cmap='RdYlBu', vmin=-1, vmax=1)
         plt.colorbar(label='NDWI')
-        plt.title('Índice de água normalizado (NDWI)')
+        plt.title('Índice de Água de Diferença Normalizada (NDWI)')
         plt.savefig(output_graph_path)
         plt.show()
         print(f"Gŕafico NDWI MODIS salvo em {output_graph_path}")

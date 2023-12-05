@@ -11,22 +11,18 @@ def calculate_ndwi_OLI(caminho_b3, caminho_b5):
 
         # Calcular e imprimir o maior e o menor valor em b3
         print(f'--------------- BEGIN NDWI OLI CALCULATION')
+
+        # Encontrar o maior valor em b3
         print(f'Max value in b3: {np.max(b3)}')
-        if np.min(b3)==0:
-            # Encontrar o menor valor em b3 maior que zero
-            min_positive_b3 = np.min(b3[(b3 > 0)])
-            # Exibir o menor valor presente em b3 maior que zero
-            print(f'Min value in b3: {min_positive_b3}')
-        else:
-            print(f'Min value in b3: {np.min(b3)}')
+        # Encontrar o menor valor em b3, valores com 0 não contam
+        min_b3 = np.min(b3[(b3 > 0)])
+        print(f'Min value in b3: {min_b3}')
+
+        # Encontrar o maior valor em b5
         print(f'Max value in b5: {np.max(b5)}')
-        if np.min(b5)==0:
-            # Encontrar o menor valor em b5 maior que zero
-            min_positive_b5 = np.min(b5[(b5 > 0)])
-            # Exibir o menor valor presente em b5 maior que zero
-            print(f'Min value in b5: {min_positive_b5}')
-        else:
-            print(f'Min value in b5: {np.min(b5)}')
+        # Encontrar o menor valor em b5, valores com 0 não contam
+        min_b5 = np.min(b5[(b5 > 0)])
+        print(f'Min value in b5: {min_b5}')
 
         # Mostrar o número de elementos em b3
         print(f'Number of elements in b3: {np.size(b3)}')
@@ -48,11 +44,21 @@ def calculate_ndwi_OLI(caminho_b3, caminho_b5):
         ndwi[mask_nonzero] = (b3[mask_nonzero] - b5[mask_nonzero]) / (b3[mask_nonzero] + b5[mask_nonzero])
 
         # Exibir o NDWI resultante
-        print(f'Max value in ndwi: {np.max(ndwi)}')
+        # Encontrar o maior valor em ndwi maior que zero
+        if np.max(ndwi)==0:
+            max_ndci = np.min(ndwi[(ndwi > 0)])
+        else:
+            max_ndci = np.max(ndwi)
+        # Exibir o maior valor presente em ndwi maior que zero
+        print(f'Max value in ndwi: {max_ndci}')
+
         # Encontrar o menor valor em ndwi maior que zero
-        min_positive_ndwi = np.min(ndwi[(ndwi > 0)])
+        if np.min(ndwi)==0:
+            min_ndwi = np.min(ndwi[(ndwi > 0)])
+        else:
+            min_ndwi = np.min(ndwi)
         # Exibir o menor valor presente em ndwi maior que zero
-        print(f'Min value in ndwi: {min_positive_ndwi}')
+        print(f'Min value in ndwi: {min_ndwi}')
 
         # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
         folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b3), os.pardir)))
@@ -66,10 +72,10 @@ def calculate_ndwi_OLI(caminho_b3, caminho_b5):
         # Exibir o NDWI
         plt.imshow(ndwi, cmap='RdYlBu', vmin=-1, vmax=1)
         plt.colorbar(label='NDWI')
-        plt.title('Índice de Água Normalizado (NDWI)')
+        plt.title('Índice de Água de Diferença Normalizada (NDWI)')
         plt.savefig(output_graph_path)
         plt.show()
-        print(f"Gŕafico NDWI salvo em {output_graph_path}")
+        print(f"Gŕafico NDWI OLI salvo em {output_graph_path}")
         print(f'--------------- END NDWI OLI CALCULATION')
 
         return ndwi
