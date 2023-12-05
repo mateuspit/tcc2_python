@@ -11,22 +11,19 @@ def calculate_ndci_OLI(caminho_b5, caminho_b4):
 
         # Calcular e imprimir o maior e o menor valor após a normalização
         print(f'--------------- BEGIN NDCI OLI CALCULATION')
+
+        # Encontrar o maior valor em b5
         print(f'Max value in b5: {np.max(b5)}')
-        if np.min(b5)==0:
-            # Encontrar o menor valor em b5 maior que zero
-            min_positive_b5 = np.min(b5[(b5 > 0)])
-            # Exibir o menor valor presente em b5 maior que zero
-            print(f'Min value in b5: {min_positive_b5}')
-        else:
-            print(f'Min value in b5: {np.min(b5)}')
+        # Encontrar o menor valor em b5, valores com 0 não contam
+        min_b5 = np.min(b5[(b5 > 0)])
+        print(f'Min value in b5: {min_b5}')
+
+
+        # Encontrar o maior valor em b4
         print(f'Max value in b4: {np.max(b4)}')
-        if np.min(b4)==0:
-            # Encontrar o menor valor em b4 maior que zero
-            min_positive_b4 = np.min(b4[(b4 > 0)])
-            # Exibir o menor valor presente em b4 maior que zero
-            print(f'Min value in b4: {min_positive_b4}')
-        else:
-            print(f'Min value in b4: {np.min(b4)}')
+        # Encontrar o menor valor em b4, valores com 0 não contam
+        min_b4 = np.min(b4[(b4 > 0)])
+        print(f'Min value in b4: {min_b4}')
 
         # Mostrar o número de elementos em b4
         print(f'Number of elements in b4: {np.size(b4)}')
@@ -48,18 +45,21 @@ def calculate_ndci_OLI(caminho_b5, caminho_b4):
         ndci[mask_nonzero] = (b5[mask_nonzero] - b4[mask_nonzero]) / (b5[mask_nonzero] + b4[mask_nonzero])
 
         # Exibir o NDCI resultante
-        if np.max(ndci) == 0:
-            max_negative_ndci = np.max(ndci[ndci < 0]) 
-            print(f'Max value in ndci: {max_negative_ndci}')
+        # Encontrar o maior valor em ndci maior que zero
+        if np.max(ndci)==0:
+            max_ndci = np.max(ndci[(ndci < 0)])
         else:
-            print(f'Max value in ndci: {np.max(ndci)}')
+            max_ndci = np.max(ndci)
+        # Exibir o maior valor presente em ndci maior que zero
+        print(f'Max value in ndci: {max_ndci}')
+
         # Encontrar o menor valor em ndci maior que zero
         if np.min(ndci)==0:
-            min_positive_ndci = np.min(ndci[(ndci > 0)])
+            min_ndci = np.min(ndci[(ndci > 0)])
         else:
-            min_positive_ndci = np.min(ndci)
+            min_ndci = np.min(ndci)
         # Exibir o menor valor presente em ndci maior que zero
-        print(f'Min value in ndci: {min_positive_ndci}')
+        print(f'Min value in ndci: {min_ndci}')
 
         # Nome da pasta anterior (pasta pai) à pasta onde a imagem será salva
         folder_name = os.path.basename(os.path.abspath(os.path.join(os.path.dirname(caminho_b4), os.pardir)))

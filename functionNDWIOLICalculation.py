@@ -46,7 +46,7 @@ def calculate_ndwi_OLI(caminho_b3, caminho_b5):
         # Exibir o NDWI resultante
         # Encontrar o maior valor em ndwi maior que zero
         if np.max(ndwi)==0:
-            max_ndci = np.min(ndwi[(ndwi > 0)])
+            max_ndci = np.max(ndwi[(ndwi < 0)])
         else:
             max_ndci = np.max(ndwi)
         # Exibir o maior valor presente em ndwi maior que zero

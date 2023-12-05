@@ -47,7 +47,7 @@ def calculate_ndwi_MODIS(caminho_b4, caminho_b2):
         # Exibir o NDWI resultante
         # Encontrar o maior valor em ndwi maior que zero
         if np.max(ndwi)==0:
-            max_ndci = np.min(ndwi[(ndwi > 0)])
+            max_ndci = np.max(ndwi[(ndwi < 0)])
         else:
             max_ndci = np.max(ndwi)
         # Exibir o maior valor presente em ndwi maior que zero
