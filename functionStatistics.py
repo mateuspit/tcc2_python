@@ -35,3 +35,17 @@ def calcular_estatisticas_indices(ndwi_OLI, ndci_OLI, ndssi_OLI, ndwi_MODIS, ndc
         })
 
     return resultados
+
+## Exemplo de uso
+#localAndYear = "Linhares_2023"  # Substitua com o valor correto
+#resultados = calcular_estatisticas_indices(ndwi_OLI, ndci_OLI, ndssi_OLI, ndwi_MODIS, ndci_MODIS, ndssi_MODIS, localAndYear)
+
+## Imprimir os resultados
+#for resultado in resultados:
+#    print(f"Estatísticas para o índice {resultado['indice']} ({resultado['localAndYear']}):")
+#    print(f"  Média: {resultado['media']}")
+#    print(f"  Mediana: {resultado['mediana']}")
+#    print(f"  Moda: {resultado['moda']}")
+#    print(f"  Desvio Padrão: {resultado['desvio_padrao']}")
+#    print(f"  Variância: {resultado['variancia']}")
+#    print("\n")

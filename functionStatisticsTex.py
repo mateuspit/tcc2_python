@@ -7,12 +7,12 @@ def calcular_estatisticas_indices_tex(ndwi_OLI, ndci_OLI, ndssi_OLI, ndwi_MODIS,
 
     # Mapeamento de rótulos para os índices
     rotulos = {
-        1: "NDWI OLI",
-        2: "NDCI OLI",
-        3: "NDSSI OLI",
-        4: "NDWI MODIS",
-        5: "NDCI MODIS",
-        6: "NDSSI MODIS",
+        1: "NDWI",
+        2: "NDCI",
+        3: "NDSSI",
+        4: "NDWI",
+        5: "NDCI",
+        6: "NDSSI",
     }
 
     # Lista para armazenar os resultados em formato LaTeX
@@ -49,12 +49,13 @@ def calcular_estatisticas_indices_tex(ndwi_OLI, ndci_OLI, ndssi_OLI, ndwi_MODIS,
 
     return resultado_final_tex
 
-## Exemplo de uso
-#localAndYear = "Linhares_2023"  # Substitua com o valor correto
+# Exemplo de uso
+#localAndYear = "LINHARES-2014"  # Substitua com o valor correto
 #resultado_tex = calcular_estatisticas_indices_tex(ndwi_OLI_L14, ndci_OLI_L14, ndssi_OLI_L14, ndwi_MODIS_L14, ndci_MODIS_L14, ndssi_MODIS_L14, localAndYear)
 
 ## Imprimir o resultado em formato LaTeX
 #print("\\begin{table}[]")
+#print("\\centering")
 #print("\\begin{tabular}{|l|lllll|}")
 #print("\\hline")
 #print(resultado_tex)
